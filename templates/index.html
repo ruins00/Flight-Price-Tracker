@@ -17,6 +17,8 @@
 
       }  
 
+
+
       .button {
         background-color: #1093d5; /* Green */
         border: none;
@@ -69,9 +71,11 @@
       <button class="button" onclick="window.location.href='/check_now';">Check Now</button>
       <button class="button" onclick="window.location.href='/img_view';" >View Latest Screenshot</button>
     </div>
-    
 
-    <table class="table table-striped table-dark table-hover table-bordered">
+    <a href="#bot">Go To Bottom</a>
+    <h4></h4>
+
+    <table class="table table-striped table-dark table-hover table-bordered" >
       <tr>
             {% for heading in headings %}
                 <th>{{ heading }}</th>
@@ -85,6 +89,8 @@
             {% endfor %}
       </tr>
     </table>
+
+    <h6 id="bot"></h6>
 
 </body>
 </html>
