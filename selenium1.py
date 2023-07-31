@@ -55,7 +55,8 @@ def check():
         pass
 
     now = datetime.now()
-
+    mainel = driver.find_element('xpath','//*[@id="listing-id"]/div/div[2]/div[1]/div[1]/div[1]')
+    driver.get_screenshot_as_file(".\static\screenshot.png")
     # dd/mm/YY H:M:S
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
