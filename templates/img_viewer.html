@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="/css" rel="stylesheet" />
+    <style>
+      
+      .container {  
+        width: 300px;  
+        height: 50px;  
+        border: none;  
+        display: flex;
+        margin: 24px;
+        margin-left: 30px;
+      }  
+
+      .button {
+        background-color: #1093d5; /* Green */
+        border: none;
+        margin: auto;
+        color: white;
+        padding: 5px 12px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        transition-duration: 0.3s;
+        border-radius: 8px;
+      }
+
+      .button:hover {
+        background-color: #211f1f; /* Green */
+        color: white;
+      }
+
+      .button:active {
+        background-color: #211f1f;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+
+      body {
+        width:100%;
+        height: 100%;
+        /* background: linear-gradient(45deg,#F17C58, #E94584, #24AADB , #27DBB1,#FFDC18, #FF3706); */
+        background: #00232f;
+        background-size: 600% 100%;
+        animation: gradient 8s linear infinite;
+        animation-direction: alternate;
+      }
+      @keyframes gradient {
+        0% {background-position: 0%}
+        100% {background-position: 100%}
+      }
+    </style>
+</head>
+<body style="overflow-x: hidden; overflow-y: scroll;" class="m-3">
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+          <a class="nav-link disabled" style="color: rgb(242, 228, 255);" href="#">FLIGHT PRICE RECORDS ✈️💵</a>
+        </li>
+    </ul>
+
+    <div class="container">
+      <button class="button" onclick="window.location.href='/recs';">Go Back</button>
+    </div>
+
+    <img src="{{ url_for('static', filename='screenshot.png') }}" width="1152" height="648" style="vertical-align:middle;margin:5px 105px">
+    
+
+</body>
+</html>
