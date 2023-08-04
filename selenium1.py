@@ -55,22 +55,36 @@ def check():
         pass
 
     now = datetime.now()
-    mainel = driver.find_element('xpath','//*[@id="listing-id"]/div/div[2]/div[1]/div[1]/div[1]')
-    mainel.screenshot(".\static\screenshot.png")
-    # dd/mm/YY H:M:S
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-
-    dep_time = driver.find_element('xpath','//*[@id="listing-id"]/div/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/label/div/div/div/div[1]/p[1]/span').text
-    arr_time = driver.find_element('xpath','//*[@id="listing-id"]/div/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/label/div/div/div/div[3]/p[1]/span').text
-    if (dep_time=='12:55' and arr_time=='19:30'):
-        price = '₹ ' + driver.find_element('xpath','//*[@id="listing-id"]/div/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div/div').text[9:14]
-        file = open(".\prices.txt","a+", encoding="utf-8")
-        input = str(i)+"|"+dt_string[:10]+"|"+dt_string[11:]+"|"+price+"\n"
-        file.write(input)
-        print("Updated")
-        file.close()
-    else:
+    path = '//*[@id="listing-id"]/div/div[2]/div[1]/div[{}]/div[1]'
+    dep_path = '//*[@id="listing-id"]/div/div[2]/div[1]/div[{}]/div[1]/div[2]/div[1]/div[2]/label/div/div/div/div[1]/p[1]/span'
+    arr_path = '//*[@id="listing-id"]/div/div[2]/div[1]/div[{}]/div[1]/div[2]/div[1]/div[2]/label/div/div/div/div[3]/p[1]/span'
+    price_path = '//*[@id="listing-id"]/div/div[2]/div[1]/div[{}]/div[1]/div[2]/div[2]/div/div/div'
+    flag = 0
+    for j in range(1,6):
+        mainel = driver.find_element('xpath',path.format(j))
+    #                                     //*[@id="listing-id"]/div/div[2]/div[1]/div[2]/div[1]
+        
+        dep_time = driver.find_element('xpath',dep_path.format(j)).text
+                                               #//*[@id="listing-id"]/div/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/label/div/div/div/div[1]/p[1]/span
+        arr_time = driver.find_element('xpath',arr_path.format(j)).text
+                                               #//*[@id="listing-id"]/div/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/label/div/div/div/div[3]/p[1]/span
+        #print(dep_time,arr_time)
+        if (dep_time=='12:55' and arr_time=='19:30'):
+            mainel.screenshot(".\static\screenshot.png")
+            # dd/mm/YY H:M:S
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            price = '₹ ' + driver.find_element('xpath',price_path.format(j)).text[9:14]
+            file = open(".\prices.txt","a+", encoding="utf-8")
+            input = str(i)+"|"+dt_string[:10]+"|"+dt_string[11:]+"|"+price+"\n"
+            file.write(input)
+            print("Updated")
+            file.close()
+            flag = 1
+            break
+    
+    if flag == 0:
         print("No Flight Found")
     driver.close()#closing the driver
 
 #-----------------------------------------------------------
+

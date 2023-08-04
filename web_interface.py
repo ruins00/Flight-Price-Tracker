@@ -11,6 +11,7 @@ def get_rec_details():
     with open('./prices.txt', 'r', encoding="utf-8") as rec_file:
         records = rec_file.readlines()
         [recs.append(record.split('|')) for record in records]
+        recs.reverse()
     return recs
 
 @app.route('/recs')
@@ -38,7 +39,7 @@ def check_now():
         check()
     except NoSuchElementException as e:
         return render_template('network_error.html')
-    return redirect('/recs')
+    return redirect('/recs#top')
 
 @app.route('/img_view')
 def img_view():
